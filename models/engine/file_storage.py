@@ -14,7 +14,7 @@ class FileStorage:
             return FileStorage.__objects
         my_dict = {}
         for key, val in FileStorage.__objects.items():
-            if type(val) == cls:
+            if isinstance(val, cls):
                 my_dict[key] = val
         return my_dict
 
@@ -56,13 +56,18 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
-        """ deletes obj from __objects if its inside"""
+        """public instance method to delete obj from __objects
+        if it’s inside
+        """
         if obj is None:
             return
-        else:
-            key = "{}.{}".format(obj.__class__.__name__, obj.id)
-            del self.__objects[key]
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
+        if key in FileStorage.__objects:
+            del FileStorage.__objects[key]
+            self.save()
 
     def close(self):
-        """deserializing the JSON file to objects"""
+        """Public method to call reload for deserializing the
+        JSON file.
+        """
         self.reload()
