@@ -24,12 +24,12 @@ def hbnb():
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def c_is_text():
+def c_is_text(text):
     """
     displays "C" followed by the value of the text variable
     replaces the underscore_symbol with a space )
     """
-    return "C{}".format(text.replace('_', ' '))
+    return 'C {}'.format(text.replace('_', ' '))
 
 
 if __name__ == '__main__':
